@@ -7,12 +7,11 @@ import org.springframework.stereotype.Service
 
 @Service
 @Profile(AppConfig.PROFILE_DEV)
-class LocalRandomService: RandomService {
-    override fun getRandomNumber(): Int {
-        return 42
-    }
+class LocalRandomService(private val min: Int = 0, private val max: Int = 100) : RandomService {
 
-    override fun getRandomNumbers(amount: Int): IntArray {
-        TODO("Not yet implemented")
+    override fun getRandomNumber(): Int = ((Math.random() * ((max - min) + 1)) + min).toInt()
+
+    override fun getRandomNumbers(amount: Int) = IntArray(amount) {
+        getRandomNumber()
     }
 }
