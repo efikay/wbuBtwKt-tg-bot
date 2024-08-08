@@ -1,5 +1,6 @@
 package com.efikay.wbubtw.random.local_random
 
+import com.efikay.wbubtw.random.service.local_random.LocalRandomService
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

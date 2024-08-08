@@ -27,6 +27,8 @@ dependencies {
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	testImplementation("com.ninja-squad:springmockk:4.0.2")
 	testImplementation("io.kotest:kotest-assertions-core:5.9.1")
+	implementation("com.github.briandilley.jsonrpc4j:jsonrpc4j:1.6")
+	implementation("com.fasterxml.jackson.core:jackson-databind")
 }
 
 kotlin {

@@ -1,0 +1,4 @@
+spring:
+  application:
+    name: "wbubtw"
+    port: 8080
