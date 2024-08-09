@@ -24,11 +24,11 @@ class BotService(private val inlineResultsService: BotInlineResultsService) {
     suspend fun answerInline(update: InlineQueryUpdate, user: User, bot: TelegramBot) {
         val inlineQuery = update.origin.inlineQuery ?: return
 
-        val inlineResults = inlineResultsService.getUserInlineResults(user.id)
+        val inlineResults = inlineResultsService.getUserInlineResults(user)
 
         answerInlineQuery(inlineQuery.id, inlineResults).options {
             isPersonal = true
-            cacheTime = 5_000
+            cacheTime = 0
         }.send(bot)
     }
 }

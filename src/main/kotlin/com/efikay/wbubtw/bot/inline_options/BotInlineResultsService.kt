@@ -3,6 +3,7 @@ package com.efikay.wbubtw.bot.inline_options
 import com.efikay.wbubtw.challenge.ChallengeResult
 import com.efikay.wbubtw.challenge.ChallengeService
 import eu.vendeli.tgbot.types.Text
+import eu.vendeli.tgbot.types.User
 import eu.vendeli.tgbot.types.inline.InlineQueryResult
 import org.springframework.stereotype.Service
 
@@ -12,14 +13,22 @@ class BotInlineResultsService(private val challengesService: ChallengeService) {
     // TODO: Make commands for /iq, /asd, ...
     val challengeResults = HashMap<Long, List<ChallengeResult>>()
 
-    fun getUserInlineResults(userId: Long): List<InlineQueryResult> {
-        return getUserChallengeResults(userId).map {
+    fun getUserInlineResults(user: User): List<InlineQueryResult> {
+        return getUserChallengeResults(user.id).map {
+            val displayName = if (user.username != null) "@${user.username}" else user.firstName
+
             val message =
-                String.format("Результаты по тесту \"%s\": %d %s", it.type.displayName, it.value, it.type.unit ?: "")
+                String.format(
+                    """Результаты для $displayName по тесту "%s": %d %s""",
+                    it.type.displayName,
+                    it.value,
+                    it.type.unit ?: ""
+                )
 
             InlineQueryResult.Article(
                 id = it.type.name,
                 title = it.type.displayName,
+                description = it.type.description,
                 inputMessageContent = Text(message)
             )
         }
