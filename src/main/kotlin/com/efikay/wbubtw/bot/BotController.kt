@@ -95,6 +95,7 @@ class BotController(private val botService: BotService) {
                     """${it.displayChallengeName}:
                   |- Всего участников: ${it.amountUsersChallenged}
                   |- Средний результат: ${it.displayAverageValue}
+                  |- Макс. результат: ${it.displayMaxValue}
               """.trimIndent()
                 }
             }

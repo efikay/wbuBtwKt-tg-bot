@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service
 class ChallengeTotalResultsService(
     private val challengeResultsService: ChallengeResultsService
 ) {
+    @Suppress("UNCHECKED_CAST")
     fun getUsersChallengeTotalStats(): List<UsersChallengeTotalStats> {
         return ChallengeId.entries.map { challengeId ->
             val challengeResults = challengeResultsService.getAllChallengeResults().values.flatten()
@@ -17,25 +18,40 @@ class ChallengeTotalResultsService(
                     it.__FIXME__getValueResult()
                 }
 
-            @Suppress("UNCHECKED_CAST")
-            val averageValue = when (challengeValues.firstOrNull()) {
-                null -> "<No data>"
-                is Int -> processIntValueResults(challengeValues as List<Int>)
-                is String -> processStringValueResults(challengeValues as List<String>)
+            val (averageValue, maxValue) = when (challengeValues.firstOrNull()) {
+                is Int -> {
+                    val intValues = challengeValues as List<Int>
 
+                    Pair(
+                        makeAvgIntResult(intValues),
+                        makeMaxIntResult(intValues),
+                    )
+                }
+
+                is String -> {
+                    val stringValues = challengeValues as List<String>
+
+                    Pair(
+                        "N/A",
+                        makeMaxStringResult(stringValues),
+                    )
+                }
+
+                null -> Pair("<No data>", "<No data>")
                 else -> throw ClassCastException("Wrong getValueResult return type in ChallengeResult!")
             }
 
             UsersChallengeTotalStats(
                 displayChallengeName = challengeId.name,
                 amountUsersChallenged = challengeValues.size,
-                displayAverageValue = averageValue
+                displayAverageValue = averageValue,
+                displayMaxValue = maxValue,
             )
         }
     }
 
 
-    private fun processStringValueResults(results: List<String>): String {
+    private fun makeMaxStringResult(results: List<String>): String {
         val res = results.groupingBy { it }.eachCount()
 
         val (mostOftenString, occurrences) = res.entries.maxByOrNull {
@@ -46,5 +62,6 @@ class ChallengeTotalResultsService(
         return "\"$mostOftenString\", встречается $occurrences раз"
     }
 
-    private fun processIntValueResults(results: List<Int>): String = results.average().toString()
+    private fun makeAvgIntResult(results: List<Int>): String = results.average().toString()
+    private fun makeMaxIntResult(results: List<Int>): String = results.max().toString()
 }
