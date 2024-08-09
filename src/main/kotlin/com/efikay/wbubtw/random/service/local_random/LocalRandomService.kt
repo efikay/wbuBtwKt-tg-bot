@@ -7,10 +7,14 @@ import org.springframework.stereotype.Service
 
 @Service
 @Profile(AppConfig.PROFILE_DEV)
-class LocalRandomService(private val min: Int = 0, private val max: Int = 100) : RandomService {
-    override fun getRandomNumbers(amount: UInt) = (1u..amount).map {
-        getRandomNumber()
+class LocalRandomService : RandomService {
+    override fun getRandomNumbers(amount: Int, range: IntRange) = (1..amount).map {
+        getRandomNumber(range)
     }
 
-    private fun getRandomNumber(): Int = ((Math.random() * ((max - min) + 1)) + min).toInt()
+    override fun getRandomNumber(range: IntRange): Int {
+        assert(!range.isEmpty()) { "Cannot get random number of empty range!" }
+
+        return ((Math.random() * ((range.maxOrNull()!! - range.minOrNull()!!) + 1)) + range.minOrNull()!!).toInt()
+    }
 }

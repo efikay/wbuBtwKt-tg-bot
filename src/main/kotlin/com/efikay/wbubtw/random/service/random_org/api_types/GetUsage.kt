@@ -1,10 +1,10 @@
 package com.efikay.wbubtw.random.service.random_org.api_types
 
-data class GetUsageParams(
+data class GetUsageApiParams(
     val apiKey: String,
 )
 
-data class GetUsageResponse(
+data class GetUsageApiResponse(
     val status: String,
     val creationTime: String,
     val bitsLeft: Int,

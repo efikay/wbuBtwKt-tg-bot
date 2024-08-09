@@ -2,10 +2,10 @@ package com.efikay.wbubtw.random.service.random_org
 
 import com.efikay.wbubtw.app.config.AppConfig
 import com.efikay.wbubtw.random.service.RandomService
+import com.efikay.wbubtw.random.service.random_org.api_types.GenerateIntegersApiParams
 import com.efikay.wbubtw.random.service.random_org.api_types.GenerateIntegersApiResponse
-import com.efikay.wbubtw.random.service.random_org.api_types.GenerateIntegersParams
-import com.efikay.wbubtw.random.service.random_org.api_types.GetUsageParams
-import com.efikay.wbubtw.random.service.random_org.api_types.GetUsageResponse
+import com.efikay.wbubtw.random.service.random_org.api_types.GetUsageApiParams
+import com.efikay.wbubtw.random.service.random_org.api_types.GetUsageApiResponse
 import com.efikay.wbubtw.random.service.random_org.json_rpc.JsonRpcRequest
 import com.efikay.wbubtw.random.service.random_org.json_rpc.JsonRpcResponse
 import org.springframework.beans.factory.annotation.Value
@@ -13,34 +13,56 @@ import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestClient
 import org.springframework.web.client.body
+import java.util.*
 
 @Service
 @Profile(AppConfig.PROFILE_PROD)
 class RandomOrgService(
     private val restClient: RestClient,
-    @Value("\${secrets.randomorg.token}") val apiKey: String
+    @Value("\${secrets.randomorg.token}") private val apiKey: String,
 ) : RandomService {
-    override fun getRandomNumbers(amount: UInt): List<Int> {
-        val response = restClient.fetchRpc<GenerateIntegersParams, GenerateIntegersApiResponse>(
-            "generateIntegers",
-            GenerateIntegersParams(
-                apiKey,
-                min = 0,
-                max = 100,
-                replacement = false,
-                n = amount
-            )
-        )
+    private val preservedResults: MutableMap<IntRange, Stack<Int>> = mutableMapOf()
 
-        return response?.random?.data ?: listOf()
+    override fun getRandomNumber(range: IntRange) = getRandomNumbers(1, range).first()
+
+    override fun getRandomNumbers(amount: Int, range: IntRange): List<Int> = (1..amount).map {
+        if (this.preservedResults[range]?.empty() == true) {
+            this.grabExtraNumbersToPreserve(amount, range)
+        }
+
+        this.preservedResults[range]!!.pop()
     }
 
-    fun getUsage() = restClient.fetchRpc<GetUsageParams, GetUsageResponse>(
+    fun getUsage() = restClient.fetchRpc<GetUsageApiParams, GetUsageApiResponse>(
         "getUsage",
-        GetUsageParams(
+        GetUsageApiParams(
             apiKey = apiKey
         )
     )
+
+    private fun grabExtraNumbersToPreserve(amount: Int, range: IntRange) {
+        assert(!range.isEmpty()) { "Range cannot be empty!" }
+
+        val extraAmount = 30
+
+        val response = restClient.fetchRpc<GenerateIntegersApiParams, GenerateIntegersApiResponse>(
+            "generateIntegers",
+            GenerateIntegersApiParams(
+                apiKey,
+                min = range.minOrNull()!!,
+                max = range.maxOrNull()!!,
+                replacement = false,
+                n = amount + extraAmount
+            )
+        )
+
+        val newNumbers = response?.random?.data ?: listOf()
+
+        val rangeNumbers = preservedResults[range] ?: Stack()
+        rangeNumbers.addAll(newNumbers)
+
+        preservedResults[range] = rangeNumbers;
+    }
 
     private inline fun <ParamsType, reified ResponseType> RestClient.fetchRpc(
         method: String,

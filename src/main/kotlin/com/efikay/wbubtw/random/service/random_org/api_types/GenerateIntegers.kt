@@ -1,6 +1,6 @@
 package com.efikay.wbubtw.random.service.random_org.api_types
 
-data class GenerateIntegersParams(
+data class GenerateIntegersApiParams(
     val apiKey: String,
 
     /**
@@ -22,7 +22,7 @@ data class GenerateIntegersParams(
     /**
      * How many random integers you need. Must be within the [1,1e4] range.
      * */
-    val n: UInt
+    val n: Int
 )
 
 data class GenerateIntegersApiResponseBody(val data: List<Int>, val completionTime: String)
