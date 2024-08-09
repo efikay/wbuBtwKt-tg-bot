@@ -2,3 +2,7 @@ spring:
   application:
     name: "wbubtw"
     port: 8080
+
+ktgram:
+  bot:
+    - token: ${secrets.bot.token}
