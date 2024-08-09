@@ -24,30 +24,22 @@ class BotController(private val botService: BotService) {
 
     @CommandHandler(["/iq"])
     suspend fun iqCommand(user: User, bot: TelegramBot) {
-        message {
-            botService.getChallengeResultMessage(user, ChallengeId.ICQ)
-        }.send(user, bot)
+        message { botService.getChallengeResultMessage(user, ChallengeId.ICQ) }.send(user, bot)
     }
 
     @CommandHandler(["/asd"])
     suspend fun asdCommand(user: User, bot: TelegramBot) {
-        message {
-            botService.getChallengeResultMessage(user, ChallengeId.ASD)
-        }.send(user, bot)
+        message { botService.getChallengeResultMessage(user, ChallengeId.ASD) }.send(user, bot)
     }
 
     @CommandHandler(["/bad"])
     suspend fun badCommand(user: User, bot: TelegramBot) {
-        message {
-            botService.getChallengeResultMessage(user, ChallengeId.BAD)
-        }.send(user, bot)
+        message { botService.getChallengeResultMessage(user, ChallengeId.BAD) }.send(user, bot)
     }
 
     @CommandHandler(["/smesharik"])
     suspend fun smesharikCommand(user: User, bot: TelegramBot) {
-        message {
-            botService.getChallengeResultMessage(user, ChallengeId.KIKORIK)
-        }.send(user, bot)
+        message { botService.getChallengeResultMessage(user, ChallengeId.KIKORIK) }.send(user, bot)
     }
 
     @CommandHandler(["/ping"])
