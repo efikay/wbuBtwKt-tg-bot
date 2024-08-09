@@ -2,6 +2,9 @@ package com.efikay.wbubtw.random.service.local_random
 
 import com.efikay.wbubtw.app.config.AppConfig
 import com.efikay.wbubtw.random.service.RandomService
+import com.efikay.wbubtw.random.service.RandomServiceAliveStatus
+import com.efikay.wbubtw.random.service.RandomServiceInfo
+import com.efikay.wbubtw.random.service.RandomServiceUsage
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
 
@@ -17,4 +20,14 @@ class LocalRandomService : RandomService {
 
         return ((Math.random() * ((range.maxOrNull()!! - range.minOrNull()!!) + 1)) + range.minOrNull()!!).toInt()
     }
+
+    override fun getInfo() = RandomServiceInfo(
+        displayName = "🧲 Local random",
+        aliveStatus = RandomServiceAliveStatus.ALIVE,
+        preservedNumbersAmount = 0,
+        usage = RandomServiceUsage(
+            requestsLeft = null,
+            bitsLeft = null,
+        )
+    )
 }

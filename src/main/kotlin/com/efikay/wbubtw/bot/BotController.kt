@@ -52,6 +52,20 @@ class BotController(private val botService: BotService) {
         message { "Pong 🏓! Время реакции – $reactionTimeMs ms" }.send(user, bot)
     }
 
+    @CommandHandler(["/rng"])
+    suspend fun rngCommand(user: User, bot: TelegramBot) {
+        val rngStatus = botService.getRngStatus()
+
+        message {
+            """
+                - Какой рандом используется: ${rngStatus.displayName}
+                - Сколько запросов еще есть: ${rngStatus.usage.requestsLeft ?: "<No data>"}
+                - Сколько бит еще есть: ${rngStatus.usage.bitsLeft ?: "<No data>"}
+                - Сколько рандомных чисел припасено локально: ${rngStatus.preservedNumbersAmount}
+            """.trimIndent()
+        }.send(user, bot)
+    }
+
     @UpdateHandler([UpdateType.INLINE_QUERY])
     suspend fun answerInline(update: InlineQueryUpdate, user: User, bot: TelegramBot) {
         val inlineQuery = update.origin.inlineQuery ?: return
