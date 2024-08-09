@@ -66,6 +66,27 @@ class BotController(private val botService: BotService) {
         }.send(user, bot)
     }
 
+    @CommandHandler(["/users"])
+    suspend fun usersCommand(user: User, bot: TelegramBot) {
+        val stats = botService.getUsersChallengeStats()
+
+        message {
+            """Статистика по пользователям
+                
+                |Тесты:
+                |
+                |${
+                stats.joinToString("\n\n") {
+                    """${it.displayChallengeName}:
+                  |- Всего участников: ${it.amountUsersChallenged}
+                  |- Средний результат: ${it.displayAverageValue}
+              """.trimIndent()
+                }
+            }
+            """.trimIndent().trimMargin()
+        }.send(user, bot)
+    }
+
     @UpdateHandler([UpdateType.INLINE_QUERY])
     suspend fun answerInline(update: InlineQueryUpdate, user: User, bot: TelegramBot) {
         val inlineQuery = update.origin.inlineQuery ?: return

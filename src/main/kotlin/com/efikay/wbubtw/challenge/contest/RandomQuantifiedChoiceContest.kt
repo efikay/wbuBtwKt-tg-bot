@@ -16,15 +16,17 @@ class RandomQuantifiedChoiceContest(
     override fun execute(): ChallengeResult {
         val quantity = getQuantity()
 
-        val (_, templateRanges) = choicesWithTemplates.entries.random()
+        val (chosenName, templateRanges) = choicesWithTemplates.entries.random()
 
-        val (_, templates) = templateRanges.entries.find { (range) -> range.contains(quantity) }!!
+        val (chosenRange, templates) = templateRanges.entries.find { (range) -> range.contains(quantity) }!!
 
         return ChallengeResult(
             displayName = displayName,
             displayDescription = displayDescription,
             getDisplayResult = { templates.random().format(quantity) },
             challengeId = challengeId,
+
+            __FIXME__getValueResult = { "$chosenName $chosenRange" }
         )
     }
 }

@@ -20,6 +20,8 @@ class RandomChoiceContest(
             displayDescription = displayDescription,
             getDisplayResult = { choice },
             challengeId = challengeId,
+
+            __FIXME__getValueResult = { choice }
         )
     }
 }

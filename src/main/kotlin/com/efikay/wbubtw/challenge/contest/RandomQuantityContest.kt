@@ -22,7 +22,9 @@ class RandomQuantityContest(
             displayName = displayName,
             displayDescription = displayDescription,
             getDisplayResult = { templates.random().format(result) },
-            challengeId = challengeId
+            challengeId = challengeId,
+
+            __FIXME__getValueResult = { result }
         )
     }
 }

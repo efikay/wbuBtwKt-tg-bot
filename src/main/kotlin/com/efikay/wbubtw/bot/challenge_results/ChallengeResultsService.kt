@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service
 
 @Service
 class ChallengeResultsService(private val challengesService: ChallengeService) {
-    val challengeResults = HashMap<Long, List<ChallengeResult>>()
+    private val challengeResults = HashMap<Long, List<ChallengeResult>>()
+
+    fun getAllChallengeResults() = challengeResults
 
     fun getUserChallengeResult(userId: Long, challengeId: ChallengeId): ChallengeResult {
         return getUserChallengeResults(userId).find { it.challengeId == challengeId }!!
@@ -22,4 +24,5 @@ class ChallengeResultsService(private val challengesService: ChallengeService) {
 
         return challengeResults[userId]!!
     }
+
 }

@@ -1,6 +1,7 @@
 package com.efikay.wbubtw.bot
 
 import com.efikay.wbubtw.bot.challenge_results.ChallengeResultsService
+import com.efikay.wbubtw.bot.challenge_results.ChallengeTotalResultsService
 import com.efikay.wbubtw.challenge.ChallengeId
 import com.efikay.wbubtw.random.service.RandomService
 import eu.vendeli.tgbot.types.Text
@@ -11,9 +12,12 @@ import org.springframework.stereotype.Service
 @Service
 class BotService(
     private val challengeResultsService: ChallengeResultsService,
+    private val challengeTotalResultsService: ChallengeTotalResultsService,
     private val randomService: RandomService,
 ) {
     fun getRngStatus() = randomService.getInfo()
+
+    fun getUsersChallengeStats() = challengeTotalResultsService.getUsersChallengeTotalStats()
 
     fun getChallengeResultMessage(user: User, challengeId: ChallengeId): String =
         challengeResultsService.getUserChallengeResult(user.id, challengeId).getDisplayResult()

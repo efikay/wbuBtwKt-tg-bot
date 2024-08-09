@@ -5,4 +5,6 @@ data class ChallengeResult(
     val displayName: String,
     val displayDescription: String,
     val getDisplayResult: () -> String,
+    
+    val __FIXME__getValueResult: () -> Any,
 )
