@@ -19,16 +19,15 @@ class BotInlineResultsService(private val challengesService: ChallengeService) {
 
             val message =
                 String.format(
-                    """Результаты для $displayName по тесту "%s": %d %s""",
-                    it.type.displayName,
-                    it.value,
-                    it.type.unit ?: ""
+                    """Результаты для $displayName по тесту "%s": %s""",
+                    it.displayName,
+                    it.displayResult,
                 )
 
             InlineQueryResult.Article(
-                id = it.type.name,
-                title = it.type.displayName,
-                description = it.type.description,
+                id = it.displayName,
+                title = it.displayName,
+                description = it.displayDescription,
                 inputMessageContent = Text(message)
             )
         }
