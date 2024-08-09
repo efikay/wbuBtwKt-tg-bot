@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RestController
 class RandomController(private val randomService: RandomService) {
     @GetMapping("numbers")
     fun getRandomNumbers(): String {
-        return "Random numbers: ${this.randomService.getRandomNumbers(3u)}"
+        return "Random numbers: ${this.randomService.getRandomNumbers(3, 1..100)}"
     }
 }

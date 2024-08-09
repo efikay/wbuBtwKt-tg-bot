@@ -11,7 +11,7 @@ class WbubtwController(private val randomService: RandomService) {
 
     @GetMapping("hello-world")
     fun helloWorld(): String {
-        val randomNumber = this.randomService.getRandomNumbers(1u)
+        val randomNumber = this.randomService.getRandomNumbers(1, 1..100)
 
         return "Random number is $randomNumber"
     };
