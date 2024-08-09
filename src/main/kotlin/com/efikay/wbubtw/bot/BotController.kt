@@ -10,10 +10,10 @@ import eu.vendeli.tgbot.api.message.message
 import eu.vendeli.tgbot.types.User
 import eu.vendeli.tgbot.types.internal.InlineQueryUpdate
 import eu.vendeli.tgbot.types.internal.UpdateType
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Controller
 
-@Service
-class BotService(private val challengeResultsService: ChallengeResultsService) {
+@Controller
+class BotController(private val challengeResultsService: ChallengeResultsService) {
     @CommandHandler(["/start"])
     suspend fun start(user: User, bot: TelegramBot) {
         message { "Hello, what's your name?" }.send(user, bot)
