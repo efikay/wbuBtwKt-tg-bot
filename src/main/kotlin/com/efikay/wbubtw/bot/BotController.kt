@@ -8,7 +8,9 @@ import eu.vendeli.tgbot.api.answer.answerInlineQuery
 import eu.vendeli.tgbot.api.message.message
 import eu.vendeli.tgbot.types.User
 import eu.vendeli.tgbot.types.internal.InlineQueryUpdate
+import eu.vendeli.tgbot.types.internal.ProcessedUpdate
 import eu.vendeli.tgbot.types.internal.UpdateType
+import kotlinx.datetime.Clock
 import org.springframework.stereotype.Controller
 
 @Controller
@@ -46,6 +48,16 @@ class BotController(private val botService: BotService) {
         message {
             botService.getChallengeResultMessage(user, ChallengeId.KIKORIK)
         }.send(user, bot)
+    }
+
+    @CommandHandler(["/ping"])
+    suspend fun pingCommand(update: ProcessedUpdate, user: User, bot: TelegramBot) {
+        val messageMsTime = update.origin.message?.date?.toEpochMilliseconds() ?: return
+        val nowMsTime = Clock.System.now().toEpochMilliseconds()
+
+        val reactionTimeMs = nowMsTime - messageMsTime
+
+        message { "Pong 🏓! Время реакции – $reactionTimeMs ms" }.send(user, bot)
     }
 
     @UpdateHandler([UpdateType.INLINE_QUERY])
