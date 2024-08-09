@@ -24,22 +24,37 @@ class BotController(private val botService: BotService) {
 
     @CommandHandler(["/iq"])
     suspend fun iqCommand(user: User, bot: TelegramBot) {
-        message { botService.getChallengeResultMessage(user, ChallengeId.ICQ) }.send(user, bot)
+        message { botService.getUserChallengeResultMessage(user, ChallengeId.ICQ) }.send(user, bot)
     }
 
     @CommandHandler(["/asd"])
     suspend fun asdCommand(user: User, bot: TelegramBot) {
-        message { botService.getChallengeResultMessage(user, ChallengeId.ASD) }.send(user, bot)
+        message { botService.getUserChallengeResultMessage(user, ChallengeId.ASD) }.send(user, bot)
     }
 
     @CommandHandler(["/bad"])
     suspend fun badCommand(user: User, bot: TelegramBot) {
-        message { botService.getChallengeResultMessage(user, ChallengeId.BAD) }.send(user, bot)
+        message { botService.getUserChallengeResultMessage(user, ChallengeId.BAD) }.send(user, bot)
     }
 
     @CommandHandler(["/smesharik"])
     suspend fun smesharikCommand(user: User, bot: TelegramBot) {
-        message { botService.getChallengeResultMessage(user, ChallengeId.KIKORIK) }.send(user, bot)
+        message { botService.getUserChallengeResultMessage(user, ChallengeId.KIKORIK) }.send(user, bot)
+    }
+
+    @CommandHandler(["/big_o"])
+    suspend fun bigOCommand(user: User, bot: TelegramBot) {
+        message { botService.getUserChallengeResultMessage(user, ChallengeId.BIG_O) }.send(user, bot)
+    }
+
+    @CommandHandler(["/all"])
+    suspend fun allCommand(user: User, bot: TelegramBot) {
+        message {
+            """Ваш диагноз по всем испытаниям:
+                |
+                |${botService.getAllUserChallengeResultMessages(user).joinToString("\n\n")}
+            """.trimMargin()
+        }.send(user, bot)
     }
 
     @CommandHandler(["/ping"])
@@ -91,7 +106,8 @@ class BotController(private val botService: BotService) {
     suspend fun answerInline(update: InlineQueryUpdate, user: User, bot: TelegramBot) {
         val inlineQuery = update.origin.inlineQuery ?: return
 
-        val inlineResults = botService.getUserInlineResults(user)
+        val inlineResults = botService.getUserInlineResults(user).toMutableList()
+        inlineResults.add(botService.getUserTotalInlineResult(user))
 
         answerInlineQuery(inlineQuery.id, inlineResults).options {
             isPersonal = true

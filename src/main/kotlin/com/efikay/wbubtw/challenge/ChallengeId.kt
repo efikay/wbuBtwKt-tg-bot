@@ -4,5 +4,6 @@ enum class ChallengeId {
     ICQ,
     ASD,
     KIKORIK,
+    BIG_O,
     BAD,
 }

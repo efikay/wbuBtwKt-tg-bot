@@ -62,6 +62,20 @@ class ChallengeService(private val randomService: RandomService) {
                 "Копатыч – медведь, сильный и умелый. Он заботится о своих друзьях и всегда готов защитить их.",
             )
         ),
+        RandomQuantityContest(
+            challengeId = ChallengeId.BIG_O,
+            displayName = "Сколько ты украл констант при О(n)",
+            displayDescription = "Узнай сколько констант у О-большого ты украл",
+            getQuantity = { randomService.getRandomNumber(0..100) },
+            resultTemplates = hashMapOf(
+                0..0 to listOf(
+                    "Поздравляю – вы Михаил! Вы украли %d констант",
+                ),
+                1..100 to listOf(
+                    "Вы украли %d констант!"
+                ),
+            )
+        ),
         RandomQuantifiedChoiceContest(
             challengeId = ChallengeId.BAD,
             displayName = "Травля",
