@@ -15,13 +15,9 @@ class LocalRandomServiceTest {
 
 
     @Test
-    fun getRandomNumber() {
-        val result = service.getRandomNumber()
+    fun getRandomNumbers() {
+        val result = service.getRandomNumbers(3u)
 
         result shouldBe 42
-    }
-
-    @Test
-    fun getRandomNumbers() {
     }
 }

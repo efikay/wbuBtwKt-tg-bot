@@ -19,10 +19,10 @@ class ExampleControllerTest {
 
     @Test
     fun `should return hello world`() {
-        val result = mockMvc.perform(MockMvcRequestBuilders.get("/hello-world"))
+        val result = mockMvc.perform(MockMvcRequestBuilders.get("/random/numbers"))
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andReturn()
 
-        "Random number is 42" shouldBe result.response.contentAsString
+        "Random number is [42,43,44]" shouldBe result.response.contentAsString
     }
 }

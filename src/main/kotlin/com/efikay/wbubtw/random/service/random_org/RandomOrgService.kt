@@ -15,7 +15,7 @@ import org.springframework.web.client.RestClient
 import org.springframework.web.client.body
 
 @Service
-@Profile(AppConfig.PROFILE_PROD, AppConfig.PROFILE_SECRETS)
+@Profile(AppConfig.PROFILE_PROD)
 class RandomOrgService(
     private val restClient: RestClient,
     @Value("\${secrets.randomorg.token}") val apiKey: String
