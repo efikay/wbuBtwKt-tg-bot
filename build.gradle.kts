@@ -1,8 +1,9 @@
 plugins {
 	id("org.springframework.boot") version "3.3.2"
 	id("io.spring.dependency-management") version "1.1.6"
-	kotlin("jvm") version "1.9.24"
-	kotlin("plugin.spring") version "1.9.24"
+	kotlin("jvm") version "2.0.0"
+	kotlin("plugin.spring") version "2.0.0"
+	id("com.google.devtools.ksp") version "2.0.0-1.0.23"
 }
 
 group = "com.efikay"
@@ -12,6 +13,9 @@ java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(17)
 	}
+}
+kotlin {
+	jvmToolchain(17)
 }
 
 repositories {
@@ -29,6 +33,9 @@ dependencies {
 	testImplementation("io.kotest:kotest-assertions-core:5.9.1")
 	implementation("com.github.briandilley.jsonrpc4j:jsonrpc4j:1.6")
 	implementation("com.fasterxml.jackson.core:jackson-databind")
+	implementation("eu.vendeli:telegram-bot:6.6.0")
+	implementation("eu.vendeli:spring-ktgram-starter:6.6.0")
+	ksp("eu.vendeli:ksp:6.6.0")
 }
 
 kotlin {
