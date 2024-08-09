@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service
 class ChallengeService(private val randomService: RandomService) {
     val challenges: List<ChallengeContest> = listOf(
         RandomQuantityContest(
+            challengeId = ChallengeId.ICQ,
             displayName = "ICQ-challenge",
             getQuantity = { randomService.getRandomNumber(1..200) },
             displayDescription = "Измеряет ICQ точнее менсы (доказано британскими учеными)",
@@ -27,6 +28,7 @@ class ChallengeService(private val randomService: RandomService) {
             )
         ),
         RandomQuantityContest(
+            challengeId = ChallengeId.ASD,
             displayName = "Тест на аутизм",
             getQuantity = { randomService.getRandomNumber(1..100) },
             displayDescription = "А есть ли смысл проверяться? Ну нажми",
@@ -47,6 +49,7 @@ class ChallengeService(private val randomService: RandomService) {
             )
         ),
         RandomChoiceContest(
+            challengeId = ChallengeId.KIKORIK,
             displayName = "Кто ты из смешариков",
             displayDescription = "Проверься! (или Бараш пострадает)",
             choices = listOf(
@@ -60,6 +63,7 @@ class ChallengeService(private val randomService: RandomService) {
             )
         ),
         RandomQuantifiedChoiceContest(
+            challengeId = ChallengeId.BAD,
             displayName = "Травля",
             displayDescription = "Проверься на негатив (без негатива)",
             choicesWithTemplates = mapOf(

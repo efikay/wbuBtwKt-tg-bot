@@ -1,10 +1,13 @@
 package com.efikay.wbubtw.challenge.contest
 
+import com.efikay.wbubtw.challenge.ChallengeId
 import com.efikay.wbubtw.challenge.ChallengeResult
 
 class RandomQuantityContest(
     @Suppress("FORBIDDEN_VARARG_PARAMETER_TYPE", "UNUSED_PARAMETER")
     vararg nothings: Nothing,
+
+    private val challengeId: ChallengeId,
     private val displayName: String,
     private val displayDescription: String,
     private val resultTemplates: Map<IntRange, List<String>>,
@@ -19,6 +22,7 @@ class RandomQuantityContest(
             displayName = displayName,
             displayDescription = displayDescription,
             getDisplayResult = { templates.random().format(result) },
+            challengeId = challengeId
         )
     }
 }
