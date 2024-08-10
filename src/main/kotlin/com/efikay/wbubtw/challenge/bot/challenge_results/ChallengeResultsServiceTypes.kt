@@ -1,4 +1,4 @@
-package com.efikay.wbubtw.bot.challenge_results
+package com.efikay.wbubtw.challenge.bot.challenge_results
 
 data class UsersChallengeTotalStats(
     var displayChallengeName: String,
