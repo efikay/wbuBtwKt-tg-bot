@@ -27,7 +27,7 @@ class ChallengeResultsService(private val challengesService: ChallengeService) {
     }
 
     @Scheduled(cron = "0 0-23/6 * * * *")
-    fun clearChallengeResultsEvery6Hours() {
+    fun clearChallengeResults() {
         challengeResults.clear()
     }
 }
