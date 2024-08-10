@@ -1,5 +1,6 @@
 package com.efikay.wbubtw.work_calendar.bot
 
+import com.efikay.wbubtw.bot.BotCommand
 import eu.vendeli.tgbot.TelegramBot
 import eu.vendeli.tgbot.annotations.CommandHandler
 import eu.vendeli.tgbot.api.message.message
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Controller
 class WorkCalendarBotController(
     private val service: WorkCalendarBotService
 ) {
-    @CommandHandler(["/work_sched"])
+    @CommandHandler([BotCommand.WORK_AGENDA])
     suspend fun workScheduleCommand(user: User, bot: TelegramBot) {
         val (days, currentMonth) = service.getCurrentMonthWorkCalendar()
 

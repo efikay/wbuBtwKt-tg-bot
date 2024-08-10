@@ -10,14 +10,14 @@ import org.springframework.stereotype.Controller
 
 @Controller
 class BotController {
-    @CommandHandler(["/start"])
+    @CommandHandler([BotCommand.START])
     suspend fun start(user: User, bot: TelegramBot) {
         message { "Hello, what's your name?" }.send(user, bot)
 
         bot.inputListener[user] = "conversation"
     }
 
-    @CommandHandler(["/ping"])
+    @CommandHandler([BotCommand.PING])
     suspend fun pingCommand(update: ProcessedUpdate, user: User, bot: TelegramBot) {
         val messageMsTime = update.origin.message?.date?.toEpochMilliseconds() ?: return
         val nowMsTime = Clock.System.now().toEpochMilliseconds()

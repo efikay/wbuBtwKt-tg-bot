@@ -1,4 +1,4 @@
-package com.efikay.wbubtw.bot
+package com.efikay.wbubtw.work_calendar.bot
 
 import com.efikay.wbubtw.work_calendar.WorkCalendarDay
 import kotlinx.datetime.Month

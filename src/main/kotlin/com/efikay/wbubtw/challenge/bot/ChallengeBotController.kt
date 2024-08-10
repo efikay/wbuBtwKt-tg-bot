@@ -1,5 +1,6 @@
 package com.efikay.wbubtw.challenge.bot
 
+import com.efikay.wbubtw.bot.BotCommand
 import com.efikay.wbubtw.challenge.ChallengeId
 
 import eu.vendeli.tgbot.TelegramBot
@@ -16,32 +17,32 @@ import org.springframework.stereotype.Controller
 class ChallengeBotController(
     private val service: ChallengeBotService
 ) {
-    @CommandHandler(["/iq"])
+    @CommandHandler([BotCommand.CHALLENGE_IQ])
     suspend fun iqCommand(user: User, bot: TelegramBot) {
         message { service.getUserChallengeResultMessage(user, ChallengeId.ICQ) }.send(user, bot)
     }
 
-    @CommandHandler(["/asd"])
+    @CommandHandler([BotCommand.CHALLENGE_ASD])
     suspend fun asdCommand(user: User, bot: TelegramBot) {
         message { service.getUserChallengeResultMessage(user, ChallengeId.ASD) }.send(user, bot)
     }
 
-    @CommandHandler(["/bad"])
+    @CommandHandler([BotCommand.CHALLENGE_BAD])
     suspend fun badCommand(user: User, bot: TelegramBot) {
         message { service.getUserChallengeResultMessage(user, ChallengeId.BAD) }.send(user, bot)
     }
 
-    @CommandHandler(["/smesharik"])
+    @CommandHandler([BotCommand.CHALLENGE_SMESHARIK])
     suspend fun smesharikCommand(user: User, bot: TelegramBot) {
         message { service.getUserChallengeResultMessage(user, ChallengeId.KIKORIK) }.send(user, bot)
     }
 
-    @CommandHandler(["/big_o"])
+    @CommandHandler([BotCommand.CHALLENGE_BIG_O])
     suspend fun bigOCommand(user: User, bot: TelegramBot) {
         message { service.getUserChallengeResultMessage(user, ChallengeId.BIG_O) }.send(user, bot)
     }
 
-    @CommandHandler(["/all"])
+    @CommandHandler([BotCommand.ALL_CHALLENGES])
     suspend fun allCommand(user: User, bot: TelegramBot) {
         message {
             """Ваш диагноз по всем испытаниям:
@@ -52,7 +53,7 @@ class ChallengeBotController(
     }
 
 
-    @CommandHandler(["/users"])
+    @CommandHandler([BotCommand.CHALLENGE_USERS])
     suspend fun usersCommand(user: User, bot: TelegramBot) {
         val stats = service.getUsersChallengeStats()
 
