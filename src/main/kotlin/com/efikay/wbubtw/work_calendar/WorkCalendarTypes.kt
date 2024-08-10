@@ -1,6 +1,6 @@
 package com.efikay.wbubtw.work_calendar
 
-import com.efikay.wbubtw.work_calendar.is_day_off_api.DayApiType
+import com.efikay.wbubtw.api_clients.isdayoff_ru.DayApiType
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalDate
 

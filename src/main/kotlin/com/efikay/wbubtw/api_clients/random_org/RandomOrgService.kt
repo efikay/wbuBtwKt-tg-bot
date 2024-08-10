@@ -1,16 +1,16 @@
-package com.efikay.wbubtw.random.service.random_org
+package com.efikay.wbubtw.api_clients.random_org
 
 import com.efikay.wbubtw.app.config.AppConfig
 import com.efikay.wbubtw.random.service.RandomService
 import com.efikay.wbubtw.random.service.RandomServiceAliveStatus
 import com.efikay.wbubtw.random.service.RandomServiceInfo
 import com.efikay.wbubtw.random.service.RandomServiceUsage
-import com.efikay.wbubtw.random.service.random_org.api_types.GenerateIntegersApiParams
-import com.efikay.wbubtw.random.service.random_org.api_types.GenerateIntegersApiResponse
-import com.efikay.wbubtw.random.service.random_org.api_types.GetUsageApiParams
-import com.efikay.wbubtw.random.service.random_org.api_types.GetUsageApiResponse
-import com.efikay.wbubtw.random.service.random_org.json_rpc.JsonRpcRequest
-import com.efikay.wbubtw.random.service.random_org.json_rpc.JsonRpcResponse
+import com.efikay.wbubtw.api_clients.random_org.api_types.GenerateIntegersApiParams
+import com.efikay.wbubtw.api_clients.random_org.api_types.GenerateIntegersApiResponse
+import com.efikay.wbubtw.api_clients.random_org.api_types.GetUsageApiParams
+import com.efikay.wbubtw.api_clients.random_org.api_types.GetUsageApiResponse
+import com.efikay.wbubtw.api_clients.random_org.json_rpc.JsonRpcRequest
+import com.efikay.wbubtw.api_clients.random_org.json_rpc.JsonRpcResponse
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service

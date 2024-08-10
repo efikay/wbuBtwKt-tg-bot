@@ -1,4 +1,4 @@
-package com.efikay.wbubtw.random.service.random_org.api_types
+package com.efikay.wbubtw.api_clients.random_org.api_types
 
 data class GenerateIntegersApiParams(
     val apiKey: String,

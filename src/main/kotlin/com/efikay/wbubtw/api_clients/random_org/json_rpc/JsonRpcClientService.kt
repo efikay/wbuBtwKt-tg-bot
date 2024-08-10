@@ -1,4 +1,4 @@
-package com.efikay.wbubtw.random.service.random_org.json_rpc
+package com.efikay.wbubtw.api_clients.random_org.json_rpc
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

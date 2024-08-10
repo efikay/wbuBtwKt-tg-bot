@@ -1,6 +1,6 @@
 package com.efikay.wbubtw.work_calendar
 
-import com.efikay.wbubtw.work_calendar.is_day_off_api.IsDayOffApiService
+import com.efikay.wbubtw.api_clients.isdayoff_ru.IsDayOffApiService
 import kotlinx.datetime.Month
 import org.springframework.stereotype.Service
 import java.time.Year

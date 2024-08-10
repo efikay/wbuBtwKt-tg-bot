@@ -1,4 +1,4 @@
-package com.efikay.wbubtw.work_calendar.is_day_off_api
+package com.efikay.wbubtw.api_clients.isdayoff_ru
 
 import kotlinx.datetime.Month
 
