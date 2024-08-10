@@ -10,8 +10,11 @@ class WorkCalendarBotUtils {
         private fun formatWorkCalendarDay(day: WorkCalendarDay): String {
             val formattedDay = when (day.dayType) {
                 WorkCalendarDayType.WORKING_DAY -> "`${day.day}`"
-                // TODO: Different formatting
-                WorkCalendarDayType.NON_WORKING_DAY -> "`${day.day}`"
+                WorkCalendarDayType.NON_WORKING_DAY -> {
+                    val crossedText = day.day.toString().toCharArray().joinToString("") { "$it\u0336" }
+
+                    "`$crossedText`"
+                }
                 // TODO: Different formatting
                 WorkCalendarDayType.SHORTENED_DAY -> "`${day.day}`"
             }
