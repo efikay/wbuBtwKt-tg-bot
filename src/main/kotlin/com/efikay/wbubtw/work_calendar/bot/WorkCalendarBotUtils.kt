@@ -1,11 +1,11 @@
-package com.efikay.wbubtw.bot
+package com.efikay.wbubtw.work_calendar.bot
 
 import com.efikay.wbubtw.work_calendar.WorkCalendarDay
 import com.efikay.wbubtw.work_calendar.WorkCalendarDayType
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.Month
 
-class BotUtils {
+class WorkCalendarBotUtils {
     companion object {
         private fun formatWorkCalendarDay(day: WorkCalendarDay): String {
             val formattedDay = when (day.dayType) {

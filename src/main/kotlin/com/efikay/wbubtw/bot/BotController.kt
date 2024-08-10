@@ -3,17 +3,13 @@ package com.efikay.wbubtw.bot
 import eu.vendeli.tgbot.TelegramBot
 import eu.vendeli.tgbot.annotations.CommandHandler
 import eu.vendeli.tgbot.api.message.message
-import eu.vendeli.tgbot.types.ParseMode
 import eu.vendeli.tgbot.types.User
 import eu.vendeli.tgbot.types.internal.ProcessedUpdate
 import kotlinx.datetime.Clock
-import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 
 @Controller
 class BotController(private val botService: BotService) {
-    private val logger = LoggerFactory.getLogger(BotController::class.java)
-
     @CommandHandler(["/start"])
     suspend fun start(user: User, bot: TelegramBot) {
         message { "Hello, what's your name?" }.send(user, bot)
@@ -44,27 +40,5 @@ class BotController(private val botService: BotService) {
             """.trimIndent()
         }.send(user, bot)
     }
-
-
-    @CommandHandler(["/work_sched"])
-    suspend fun workScheduleCommand(user: User, bot: TelegramBot) {
-        val (days, currentMonth) = botService.getCurrentMonthWorkCalendar()
-
-        val formattedWorkCalendarMonth = BotUtils.formatMonthWorkCalendar(currentMonth, days)
-        logger.info(
-            formattedWorkCalendarMonth
-        )
-
-        message {
-            """🗓️ Производственный календарь за текущий месяц
-                
-$formattedWorkCalendarMonth
-            """.trimIndent()
-        }.options {
-            parseMode = ParseMode.MarkdownV2
-        }.send(user, bot)
-    }
-
-
 }
 
