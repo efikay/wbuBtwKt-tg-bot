@@ -9,14 +9,13 @@ class WorkCalendarBotUtils {
     companion object {
         private fun formatWorkCalendarDay(day: WorkCalendarDay): String {
             val formattedDay = when (day.dayType) {
-                WorkCalendarDayType.WORKING_DAY -> "`${day.day}`"
+                // TODO: Different formatting for SHORTENED_DAY
+                WorkCalendarDayType.WORKING_DAY, WorkCalendarDayType.SHORTENED_DAY -> "`${day.day}`"
                 WorkCalendarDayType.NON_WORKING_DAY -> {
                     val crossedText = day.day.toString().toCharArray().joinToString("") { "$it\u0336" }
 
                     "`$crossedText`"
                 }
-                // TODO: Different formatting
-                WorkCalendarDayType.SHORTENED_DAY -> "`${day.day}`"
             }
             val prefix = when {
                 day.day >= 10 -> ""
@@ -26,7 +25,7 @@ class WorkCalendarBotUtils {
             return "$prefix$formattedDay"
         }
 
-        // TODO: NOW IT's JUST A CALENDAR. FORMAT TO DIFFER ONE DAY TYPES FROM ANOTHER
+        // TODO: Add today highlight
         fun formatMonthWorkCalendar(month: Month, days: List<WorkCalendarDay>): String {
             val sortedDays = days.sortedBy { it.day }
 
