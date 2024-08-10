@@ -4,6 +4,8 @@ import com.efikay.wbubtw.bot.challenge_results.ChallengeResultsService
 import com.efikay.wbubtw.bot.challenge_results.ChallengeTotalResultsService
 import com.efikay.wbubtw.challenge.ChallengeId
 import com.efikay.wbubtw.random.service.RandomService
+import com.efikay.wbubtw.utils.DateUtils
+import com.efikay.wbubtw.work_calendar.WorkCalendarService
 import eu.vendeli.tgbot.types.Text
 import eu.vendeli.tgbot.types.User
 import eu.vendeli.tgbot.types.inline.InlineQueryResult
@@ -14,6 +16,7 @@ class BotService(
     private val challengeResultsService: ChallengeResultsService,
     private val challengeTotalResultsService: ChallengeTotalResultsService,
     private val randomService: RandomService,
+    private val workCalendarService: WorkCalendarService,
 ) {
     fun getRngStatus() = randomService.getInfo()
 
@@ -77,4 +80,13 @@ class BotService(
                 inputMessageContent = Text(message)
             )
         }
+
+    fun getCurrentMonthWorkCalendar(): GetCurrentMonthWorkCalendarResponse {
+        val currentMonth = DateUtils.getCurrentMonth()
+
+        return GetCurrentMonthWorkCalendarResponse(
+            days = workCalendarService.getMonthDays(currentMonth),
+            currentMonth = currentMonth,
+        )
+    }
 }
