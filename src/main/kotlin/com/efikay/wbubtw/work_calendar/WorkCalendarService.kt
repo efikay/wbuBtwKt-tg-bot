@@ -10,7 +10,7 @@ class WorkCalendarService(
     private val dayOffApiService: IsDayOffApiService,
     private val repository: WorkCalendarRepository,
 ) {
-    fun getMonthDays(month: Month, year: Year = Year.now()): List<WorkCalendarDay> {
+    fun getMonthDays(month: Month, year: Year): List<WorkCalendarDay> {
         if (!repository.hasMonthDays(month, year)) {
             val (_, days) = dayOffApiService.getMonthCalendar(month, year)
 

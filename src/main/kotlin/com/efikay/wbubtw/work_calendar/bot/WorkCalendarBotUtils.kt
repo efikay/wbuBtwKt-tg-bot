@@ -7,24 +7,6 @@ import kotlinx.datetime.Month
 
 class WorkCalendarBotUtils {
     companion object {
-        private fun formatWorkCalendarDay(day: WorkCalendarDay): String {
-            val formattedDay = when (day.dayType) {
-                // TODO: Different formatting for SHORTENED_DAY
-                WorkCalendarDayType.WORKING_DAY, WorkCalendarDayType.SHORTENED_DAY -> "`${day.day}`"
-                WorkCalendarDayType.NON_WORKING_DAY -> {
-                    val crossedText = day.day.toString().toCharArray().joinToString("") { "$it\u0336" }
-
-                    "`$crossedText`"
-                }
-            }
-            val prefix = when {
-                day.day >= 10 -> ""
-                else -> "` `"
-            }
-
-            return "$prefix$formattedDay"
-        }
-
         // TODO: Add today highlight
         fun formatMonthWorkCalendar(month: Month, days: List<WorkCalendarDay>): String {
             val sortedDays = days.sortedBy { it.day }
@@ -58,6 +40,24 @@ class WorkCalendarBotUtils {
                 }
             }
             """.trimIndent().trimMargin()
+        }
+
+        private fun formatWorkCalendarDay(day: WorkCalendarDay): String {
+            val formattedDay = when (day.dayType) {
+                // TODO: Different formatting for SHORTENED_DAY
+                WorkCalendarDayType.WORKING_DAY, WorkCalendarDayType.SHORTENED_DAY -> "`${day.day}`"
+                WorkCalendarDayType.NON_WORKING_DAY -> {
+                    val crossedText = day.day.toString().toCharArray().joinToString("") { "$it\u0336" }
+
+                    "`$crossedText`"
+                }
+            }
+            val prefix = when {
+                day.day >= 10 -> ""
+                else -> "` `"
+            }
+
+            return "$prefix$formattedDay"
         }
     }
 }

@@ -2,18 +2,26 @@ package com.efikay.wbubtw.work_calendar.bot
 
 import com.efikay.wbubtw.utils.DateUtils
 import com.efikay.wbubtw.work_calendar.WorkCalendarService
+import kotlinx.datetime.Month
 import org.springframework.stereotype.Service
+import java.time.Year
 
 @Service
 class WorkCalendarBotService(
     private val workCalendarService: WorkCalendarService,
 ) {
-    fun getCurrentMonthWorkCalendar(): GetCurrentMonthWorkCalendarResponse {
-        val currentMonth = DateUtils.getCurrentMonth()
+    fun getMonthWorkCalendar(month: Month, year: Year): GetMonthWorkCalendarResponse {
+        val days = workCalendarService.getMonthDays(month, year)
 
-        return GetCurrentMonthWorkCalendarResponse(
-            days = workCalendarService.getMonthDays(currentMonth),
-            currentMonth = currentMonth,
+        return GetMonthWorkCalendarResponse(
+            formattedCalendar = WorkCalendarBotUtils.formatMonthWorkCalendar(month, days),
+            choices = WorkCalendarBotInlineKeyboardChoice.choices(
+                year,
+                month,
+            ),
         )
     }
+
+    fun getCurrentMonthWorkCalendar() =
+        getMonthWorkCalendar(DateUtils.getCurrentMonth(), Year.now())
 }
