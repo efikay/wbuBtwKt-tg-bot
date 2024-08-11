@@ -2,7 +2,7 @@ package com.efikay.wbubtw.utils.extensions
 
 import kotlinx.datetime.Month
 
-val russianMonths = listOf(
+private val russianMonths = listOf(
     "Январь",
     "Ферваль",
     "Март",

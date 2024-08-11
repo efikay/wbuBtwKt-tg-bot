@@ -1,6 +1,5 @@
 package com.efikay.wbubtw.work_calendar.bot
 
-import com.efikay.wbubtw.utils.DateUtils
 import com.efikay.wbubtw.work_calendar.WorkCalendarService
 import kotlinx.datetime.Month
 import org.springframework.stereotype.Service
@@ -21,7 +20,4 @@ class WorkCalendarBotService(
             ),
         )
     }
-
-    fun getCurrentMonthWorkCalendar() =
-        getMonthWorkCalendar(DateUtils.getCurrentMonth(), Year.now())
 }

@@ -1,7 +1,7 @@
 package com.efikay.wbubtw.bot
 
 import com.efikay.wbubtw.challenge.inline_result.ChallengeInlineResultsService
-import com.efikay.wbubtw.work_calendar.bot.WorkCalendarInlineResultService
+import com.efikay.wbubtw.work_calendar.inline.WorkCalendarInlineResultService
 import eu.vendeli.tgbot.TelegramBot
 import eu.vendeli.tgbot.annotations.CommandHandler
 import eu.vendeli.tgbot.annotations.UpdateHandler
@@ -42,7 +42,7 @@ class BotController(
 
         val inlineResults =
             challengeInlineResultsService.getAvailableInlineResults(user) +
-                    workCalendarInlineResultService.generateInlineResult()
+                    workCalendarInlineResultService.generateInlineResult(inlineQuery.query)
 
         answerInlineQuery(inlineQuery.id, inlineResults).options {
             isPersonal = true

@@ -1,6 +1,7 @@
 package com.efikay.wbubtw.work_calendar.bot
 
 import com.efikay.wbubtw.bot.BotCommand
+import com.efikay.wbubtw.utils.DateUtils
 import com.efikay.wbubtw.utils.extensions.toRussianString
 import eu.vendeli.tgbot.TelegramBot
 import eu.vendeli.tgbot.annotations.CommandHandler
@@ -21,10 +22,15 @@ class WorkCalendarBotController(
 ) {
     @CommandHandler([BotCommand.WORK_AGENDA])
     suspend fun workScheduleCommand(update: ProcessedUpdate, user: User, bot: TelegramBot) {
+        val today = DateUtils.getToday()
+
         val (
             formattedCalendar,
             choices,
-        ) = service.getCurrentMonthWorkCalendar()
+        ) = service.getMonthWorkCalendar(
+            year = Year.of(today.year),
+            month = today.month,
+        )
 
         val (prevChoice, nextChoice) = choices
 
