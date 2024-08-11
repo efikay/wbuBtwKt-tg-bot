@@ -1,4 +1,4 @@
-package com.efikay.wbubtw.app.controller
+package com.efikay.wbubtw.app
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping

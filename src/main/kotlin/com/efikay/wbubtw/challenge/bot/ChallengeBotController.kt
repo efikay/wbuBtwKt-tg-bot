@@ -2,20 +2,15 @@ package com.efikay.wbubtw.challenge.bot
 
 import com.efikay.wbubtw.bot.BotCommand
 import com.efikay.wbubtw.challenge.ChallengeId
-
 import eu.vendeli.tgbot.TelegramBot
 import eu.vendeli.tgbot.annotations.CommandHandler
-import eu.vendeli.tgbot.annotations.UpdateHandler
-import eu.vendeli.tgbot.api.answer.answerInlineQuery
 import eu.vendeli.tgbot.api.message.message
 import eu.vendeli.tgbot.types.User
-import eu.vendeli.tgbot.types.internal.InlineQueryUpdate
-import eu.vendeli.tgbot.types.internal.UpdateType
 import org.springframework.stereotype.Controller
 
 @Controller
 class ChallengeBotController(
-    private val service: ChallengeBotService
+    private val service: ChallengeBotService,
 ) {
     @CommandHandler([BotCommand.CHALLENGE_IQ])
     suspend fun iqCommand(user: User, bot: TelegramBot) {
@@ -73,18 +68,5 @@ class ChallengeBotController(
             }
             """.trimIndent().trimMargin()
         }.send(user, bot)
-    }
-
-    @UpdateHandler([UpdateType.INLINE_QUERY])
-    suspend fun answerInline(update: InlineQueryUpdate, user: User, bot: TelegramBot) {
-        val inlineQuery = update.origin.inlineQuery ?: return
-
-        val inlineResults = service.getUserInlineResults(user).toMutableList()
-        inlineResults.add(service.getUserTotalInlineResult(user))
-
-        answerInlineQuery(inlineQuery.id, inlineResults).options {
-            isPersonal = true
-            cacheTime = 0
-        }.send(bot)
     }
 }

@@ -1,4 +1,4 @@
-package com.efikay.wbubtw.app.controller
+package com.efikay.wbubtw.app
 
 import com.efikay.wbubtw.random.service.RandomService
 import org.springframework.stereotype.Service
