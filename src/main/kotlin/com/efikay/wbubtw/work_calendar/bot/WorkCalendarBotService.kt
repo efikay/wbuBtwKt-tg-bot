@@ -14,7 +14,7 @@ class WorkCalendarBotService(
         val days = workCalendarService.getMonthDays(month, year)
 
         return GetMonthWorkCalendarResponse(
-            formattedCalendar = WorkCalendarBotUtils.formatMonthWorkCalendar(month, days),
+            formattedCalendar = WorkCalendarBotUtils.formatMonthWorkCalendar(year, month, days),
             choices = WorkCalendarBotInlineKeyboardChoice.choices(
                 year,
                 month,

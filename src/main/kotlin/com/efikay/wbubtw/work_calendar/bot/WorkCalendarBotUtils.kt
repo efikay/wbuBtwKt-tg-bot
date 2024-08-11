@@ -17,11 +17,11 @@ class WorkCalendarBotUtils {
 
             val todayYear = today.year
             val todayMonth = today.month
-            val todayDay = DateUtils.getToday().dayOfMonth
+            val todayDay = today.dayOfMonth
 
             val isCurrentYearCalendar = calendarYear.value == todayYear
 
-            val todayLegend = if (isCurrentYearCalendar) {
+            val todayIsLegend = if (isCurrentYearCalendar) {
                 "*Сегодня* – $todayDay ${todayMonth.toRussianString()}"
             } else {
                 "*Сегодня* – $todayDay ${todayMonth.toRussianString()} $todayYear"
@@ -29,15 +29,15 @@ class WorkCalendarBotUtils {
 
             return """
                 |Легенда:
-                |\- *Рабочий день* – `15` 
-                |\- *Нерабочий день* – `${"15".toCharArray().joinToString("") { "$it\u0336" }}` 
+                |\- ` $todayDay` – *Рабочий день* ⚒️  
+                |\- ` ${todayDay.toString().toCharArray().joinToString("") { "$it\u0336" }}` – *Нерабочий день* 🏖️
+                |\- `*$todayDay` – *Сегодняшний день* 🕰️
                 |
-                |$todayLegend
+                |$todayIsLegend
             """.trimMargin()
         }
 
-        // TODO: Add today highlight
-        fun formatMonthWorkCalendar(month: Month, days: List<WorkCalendarDay>): String {
+        fun formatMonthWorkCalendar(year: Year, month: Month, days: List<WorkCalendarDay>): String {
             val sortedDays = days.sortedBy { it.day }
 
             val weeks = mutableListOf<List<WorkCalendarDay>>()
@@ -64,11 +64,24 @@ $header
             |${firstWeekGap}${
                 weeks.joinToString("\n") { week ->
                     week.joinToString("` `") { day ->
-                        formatWorkCalendarDay(day)
+                        formatWorkCalendarDay(
+                            day,
+                            isToday = isWorkCalendarDayToday(year, month, day)
+                        )
                     }
                 }
             }
             """.trimIndent().trimMargin()
+        }
+
+        private fun isWorkCalendarDayToday(year: Year, month: Month, day: WorkCalendarDay): Boolean {
+            val today = DateUtils.getToday().date
+
+            return (
+                    today.month == month &&
+                            today.year == year.value &&
+                            day.day == today.dayOfMonth
+                    )
         }
 
         private fun formatWorkCalendarHeader(month: Month): String {
@@ -88,7 +101,7 @@ $header
             """.trimIndent()
         }
 
-        private fun formatWorkCalendarDay(day: WorkCalendarDay): String {
+        private fun formatWorkCalendarDay(day: WorkCalendarDay, isToday: Boolean): String {
             val formattedDay = when (day.dayType) {
                 // TODO: Different formatting for SHORTENED_DAY
                 WorkCalendarDayType.WORKING_DAY, WorkCalendarDayType.SHORTENED_DAY -> "`${day.day}`"
@@ -98,12 +111,18 @@ $header
                     "`$crossedText`"
                 }
             }
-            val prefix = when {
-                day.day >= 10 -> "` `"
-                else -> "`  `"
+
+            val specialMark = if (isToday) {
+                "*"
+            } else {
+                " "
+            }
+            val prefixMeta = when {
+                day.day >= 10 -> specialMark
+                else -> " $specialMark"
             }
 
-            return "$prefix$formattedDay"
+            return "`$prefixMeta`$formattedDay"
         }
 
         private const val CALENDAR_DAYS_HEADER = " ПН  ВТ  СР  ЧТ  ПТ  СБ  ВС"
