@@ -27,10 +27,14 @@ class WorkCalendarBotController(
 
         val (prevChoice, nextChoice) = choices
 
+        val calendarTips = WorkCalendarBotUtils.formatCalendarTips()
+
         message {
             """🗓️ Производственный календарь за текущий месяц
                 
 $formattedCalendar
+
+$calendarTips
             """.trimIndent()
         }.options {
             parseMode = ParseMode.MarkdownV2
@@ -53,10 +57,14 @@ $formattedCalendar
 
         val (prevChoice, nextChoice) = choices
 
+        val calendarTips = WorkCalendarBotUtils.formatCalendarTips()
+
         editText(messageIdToEdit) {
             """🗓️ Производственный календарь за $year ${month.toRussianString()}
                 
 $formattedCalendar
+
+$calendarTips
             """.trimIndent()
         }.options {
             parseMode = ParseMode.MarkdownV2
