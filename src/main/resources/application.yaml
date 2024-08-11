@@ -5,7 +5,7 @@ spring:
 
 bot:
   challenges:
-    enabled: false
+    enabled: true
 
 ktgram:
   bot:
