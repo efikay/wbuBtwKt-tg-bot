@@ -13,6 +13,7 @@ import eu.vendeli.tgbot.types.internal.CallbackQueryUpdate
 import eu.vendeli.tgbot.types.internal.ProcessedUpdate
 import eu.vendeli.tgbot.types.internal.UpdateType
 import org.springframework.stereotype.Controller
+import java.time.Year
 
 @Controller
 class WorkCalendarBotController(
@@ -27,7 +28,7 @@ class WorkCalendarBotController(
 
         val (prevChoice, nextChoice) = choices
 
-        val calendarTips = WorkCalendarBotUtils.formatCalendarTips()
+        val calendarTips = WorkCalendarBotUtils.formatCalendarTips(Year.now())
 
         message {
             """🗓️ Производственный календарь за текущий месяц
@@ -57,7 +58,7 @@ $calendarTips
 
         val (prevChoice, nextChoice) = choices
 
-        val calendarTips = WorkCalendarBotUtils.formatCalendarTips()
+        val calendarTips = WorkCalendarBotUtils.formatCalendarTips(year)
 
         editText(messageIdToEdit) {
             """🗓️ Производственный календарь за $year ${month.toRussianString()}

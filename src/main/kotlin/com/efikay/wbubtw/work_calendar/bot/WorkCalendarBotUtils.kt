@@ -6,22 +6,33 @@ import com.efikay.wbubtw.work_calendar.WorkCalendarDay
 import com.efikay.wbubtw.work_calendar.WorkCalendarDayType
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.Month
+import java.time.Year
 
 class WorkCalendarBotUtils {
     companion object {
-        fun formatCalendarTips(): String {
+        fun formatCalendarTips(
+            calendarYear: Year
+        ): String {
             val today = DateUtils.getToday()
 
             val todayYear = today.year
             val todayMonth = today.month
             val todayDay = DateUtils.getToday().dayOfMonth
 
+            val isCurrentYearCalendar = calendarYear.value == todayYear
+
+            val todayLegend = if (isCurrentYearCalendar) {
+                "*Сегодня* – $todayDay ${todayMonth.toRussianString()}"
+            } else {
+                "*Сегодня* – $todayDay ${todayMonth.toRussianString()} $todayYear"
+            }
+
             return """
                 |Легенда:
                 |\- *Рабочий день* – `15` 
                 |\- *Нерабочий день* – `${"15".toCharArray().joinToString("") { "$it\u0336" }}` 
                 |
-                |*Сегодня* – $todayDay ${todayMonth.toRussianString()} $todayYear
+                |$todayLegend
             """.trimMargin()
         }
 
