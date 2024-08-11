@@ -6,9 +6,11 @@ import eu.vendeli.tgbot.TelegramBot
 import eu.vendeli.tgbot.annotations.CommandHandler
 import eu.vendeli.tgbot.api.message.message
 import eu.vendeli.tgbot.types.User
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression
 import org.springframework.stereotype.Controller
 
 @Controller
+@ConditionalOnExpression("\${bot.challenges.enabled}") // FIXME: No bean exception if disabled. But it works
 class ChallengeBotController(
     private val service: ChallengeBotService,
 ) {

@@ -41,12 +41,8 @@ class BotController(
         val inlineQuery = update.origin.inlineQuery ?: return
 
         val inlineResults =
-            challengeInlineResultsService.getUserInlineResults(user).toMutableList()
-        inlineResults.add(challengeInlineResultsService.getUserTotalInlineResult(user))
-
-        inlineResults.add(
-            workCalendarInlineResultService.generateInlineResult()
-        )
+            challengeInlineResultsService.getAvailableInlineResults(user) +
+                    workCalendarInlineResultService.generateInlineResult()
 
         answerInlineQuery(inlineQuery.id, inlineResults).options {
             isPersonal = true

@@ -3,6 +3,10 @@ spring:
     name: "wbubtw"
     port: 8080
 
+bot:
+  challenges:
+    enabled: true
+
 ktgram:
   bot:
     - token: ${secrets.bot.token}
