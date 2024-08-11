@@ -4,7 +4,10 @@ data class JsonRpcRequest<Params>(
     val method: String,
     val params: Params,
 ) {
+    @Suppress("unused")
     val jsonrpc = "2.0"
+
+    @Suppress("unused")
     val id = 42
 }
 

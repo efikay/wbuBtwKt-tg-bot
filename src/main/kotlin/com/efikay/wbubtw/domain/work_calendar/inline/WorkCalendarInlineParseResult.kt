@@ -18,15 +18,6 @@ data class WorkCalendarInlineParseResult(
             )
         }
 
-        fun fromToday(): WorkCalendarInlineParseResult {
-            val today = DateUtils.getToday()
-
-            return WorkCalendarInlineParseResult(
-                year = today.year,
-                month = today.month,
-            )
-        }
-
         private fun tryParseYear(preparedQueryString: String): Int? {
             val possibleYear = preparedQueryString.filter { it.isDigit() }.toIntOrNull() ?: return null
 
@@ -42,7 +33,7 @@ data class WorkCalendarInlineParseResult(
                 return null
             }
 
-            val (_, month) = MONTH_PREFIXES.entries.find { (prefix, month) ->
+            val (_, month) = MONTH_PREFIXES.entries.find { (prefix) ->
                 preparedQueryString.contains(prefix)
             } ?: return null
 
