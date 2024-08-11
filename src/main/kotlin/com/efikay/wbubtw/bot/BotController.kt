@@ -1,7 +1,7 @@
 package com.efikay.wbubtw.bot
 
-import com.efikay.wbubtw.challenge.inline_result.ChallengeInlineResultsService
-import com.efikay.wbubtw.work_calendar.inline.WorkCalendarInlineResultService
+import com.efikay.wbubtw.domain.challenge.inline_result.ChallengeInlineResultsService
+import com.efikay.wbubtw.domain.work_calendar.inline.WorkCalendarInlineResultService
 import eu.vendeli.tgbot.TelegramBot
 import eu.vendeli.tgbot.annotations.CommandHandler
 import eu.vendeli.tgbot.annotations.UpdateHandler

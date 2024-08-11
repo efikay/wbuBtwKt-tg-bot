@@ -1,13 +1,11 @@
-package com.efikay.wbubtw.app
+package com.efikay.wbubtw.shared.random.bot
 
 import com.efikay.wbubtw.shared.random.service.RandomService
 import org.springframework.stereotype.Service
 
 @Service
-class WbubtwService(
-    private val randomService: RandomService
+class RandomBotService(
+    private val randomService: RandomService,
 ) {
-    fun getRandomNumber() = randomService.getRandomNumber(1..100)
-
     fun getRngStatus() = randomService.getInfo()
 }
