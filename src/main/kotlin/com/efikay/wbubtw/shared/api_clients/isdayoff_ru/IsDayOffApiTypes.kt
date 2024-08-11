@@ -18,8 +18,6 @@ enum class DayTypeApiErrorCode(val httpCode: Int) {
     SERVICE_ERROR(199)
 }
 
-typealias GetMonthApiResponse = List<Int>
-
 data class GetMonthCalendarResponse(
     val month: Month,
     val days: List<DayApiType>?,

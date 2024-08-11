@@ -1,16 +1,16 @@
 package com.efikay.wbubtw.shared.api_clients.random_org
 
 import com.efikay.wbubtw.app.config.AppConfig
-import com.efikay.wbubtw.shared.random.service.RandomService
-import com.efikay.wbubtw.shared.random.service.RandomServiceAliveStatus
-import com.efikay.wbubtw.shared.random.service.RandomServiceInfo
-import com.efikay.wbubtw.shared.random.service.RandomServiceUsage
 import com.efikay.wbubtw.shared.api_clients.random_org.api_types.GenerateIntegersApiParams
 import com.efikay.wbubtw.shared.api_clients.random_org.api_types.GenerateIntegersApiResponse
 import com.efikay.wbubtw.shared.api_clients.random_org.api_types.GetUsageApiParams
 import com.efikay.wbubtw.shared.api_clients.random_org.api_types.GetUsageApiResponse
 import com.efikay.wbubtw.shared.api_clients.random_org.json_rpc.JsonRpcRequest
 import com.efikay.wbubtw.shared.api_clients.random_org.json_rpc.JsonRpcResponse
+import com.efikay.wbubtw.shared.random.service.RandomService
+import com.efikay.wbubtw.shared.random.service.RandomServiceAliveStatus
+import com.efikay.wbubtw.shared.random.service.RandomServiceInfo
+import com.efikay.wbubtw.shared.random.service.RandomServiceUsage
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
@@ -28,9 +28,7 @@ class RandomOrgService(
 
     override fun getRandomNumber(range: IntRange) = getRandomNumbers(1, range).first()
 
-    override fun getRandomNumbers(amount: Int, range: IntRange): List<Int> = (amount downTo 1).map {
-        val numbersLeft = it
-
+    override fun getRandomNumbers(amount: Int, range: IntRange): List<Int> = (amount downTo 1).map { numbersLeft ->
         if (this.preservedResults[range] == null || this.preservedResults[range]!!.empty()) {
             this.grabExtraNumbersToPreserve(numbersLeft, range)
         }
