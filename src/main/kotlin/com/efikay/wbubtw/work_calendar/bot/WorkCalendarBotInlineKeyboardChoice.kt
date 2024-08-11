@@ -1,5 +1,6 @@
 package com.efikay.wbubtw.work_calendar.bot
 
+import com.efikay.wbubtw.utils.extensions.toRussianString
 import kotlinx.datetime.Month
 import java.time.Year
 
@@ -47,8 +48,8 @@ class WorkCalendarBotInlineKeyboardChoice private constructor(
                 else -> currentYear
             }
             val prevChoiceText = when (prevChoiceYear) {
-                currentYear -> "⬅️ $prevChoiceMonth"
-                else -> "⬅️ ($prevChoiceYear) $prevChoiceMonth"
+                currentYear -> "⬅️ ${prevChoiceMonth.toRussianString()}"
+                else -> "⬅️ ($prevChoiceYear) ${prevChoiceMonth.toRussianString()}"
             }
 
             return WorkCalendarBotInlineKeyboardChoice(
@@ -71,8 +72,8 @@ class WorkCalendarBotInlineKeyboardChoice private constructor(
                 else -> currentYear
             }
             val nextChoiceText = when (nextChoiceYear) {
-                currentYear -> "$nextChoiceMonth ➡️"
-                else -> "$nextChoiceMonth ($nextChoiceYear) ➡️"
+                currentYear -> "${nextChoiceMonth.toRussianString()} ➡️"
+                else -> "${nextChoiceMonth.toRussianString()} ($nextChoiceYear) ➡️"
             }
 
             return WorkCalendarBotInlineKeyboardChoice(

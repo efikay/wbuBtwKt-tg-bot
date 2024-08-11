@@ -1,5 +1,6 @@
 package com.efikay.wbubtw.work_calendar.bot
 
+import com.efikay.wbubtw.utils.extensions.toRussianString
 import com.efikay.wbubtw.work_calendar.WorkCalendarDay
 import com.efikay.wbubtw.work_calendar.WorkCalendarDayType
 import kotlinx.datetime.DayOfWeek
@@ -29,7 +30,7 @@ class WorkCalendarBotUtils {
             val firstWeekGap = (1..(7 - weeks.first().size)).joinToString("") { "`   `" }
 
             return """
-            |`      ${month}`
+            |`      ${month.toRussianString()}`
             |`ПН ВТ СР ЧТ ПТ СБ ВС`
             |`-- -- -- -- -- -- --`
             |${firstWeekGap}${

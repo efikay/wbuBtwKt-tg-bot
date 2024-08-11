@@ -1,6 +1,7 @@
 package com.efikay.wbubtw.work_calendar.bot
 
 import com.efikay.wbubtw.bot.BotCommand
+import com.efikay.wbubtw.utils.extensions.toRussianString
 import eu.vendeli.tgbot.TelegramBot
 import eu.vendeli.tgbot.annotations.CommandHandler
 import eu.vendeli.tgbot.annotations.UpdateHandler
@@ -53,7 +54,7 @@ $formattedCalendar
         val (prevChoice, nextChoice) = choices
 
         editText(messageIdToEdit) {
-            """🗓️ Производственный календарь за $year $month
+            """🗓️ Производственный календарь за $year ${month.toRussianString()}
                 
 $formattedCalendar
             """.trimIndent()
