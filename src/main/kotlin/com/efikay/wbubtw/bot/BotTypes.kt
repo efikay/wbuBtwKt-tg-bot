@@ -12,7 +12,5 @@ class BotCommand {
         const val CHALLENGE_BIG_O = "/big_o"
         const val ALL_CHALLENGES = "/all"
         const val CHALLENGE_USERS = "/users"
-
-        const val WORK_AGENDA = "/agenda"
     }
 }
