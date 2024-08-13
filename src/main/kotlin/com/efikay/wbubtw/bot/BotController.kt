@@ -1,7 +1,6 @@
 package com.efikay.wbubtw.bot
 
 import com.efikay.wbubtw.domain.challenge.inline_result.ChallengeInlineResultsService
-import com.efikay.wbubtw.domain.work_calendar.inline.WorkCalendarInlineResultService
 import eu.vendeli.tgbot.TelegramBot
 import eu.vendeli.tgbot.annotations.CommandHandler
 import eu.vendeli.tgbot.annotations.UpdateHandler
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Controller
 @Controller
 class BotController(
     private val challengeInlineResultsService: ChallengeInlineResultsService,
-    private val workCalendarInlineResultService: WorkCalendarInlineResultService
 ) {
     @CommandHandler([BotCommand.START])
     suspend fun start(user: User, bot: TelegramBot) {
@@ -41,8 +39,7 @@ class BotController(
         val inlineQuery = update.origin.inlineQuery ?: return
 
         val inlineResults =
-            challengeInlineResultsService.getAvailableInlineResults(user) +
-                    workCalendarInlineResultService.generateInlineResult(inlineQuery.query)
+            challengeInlineResultsService.getAvailableInlineResults(user)
 
         answerInlineQuery(inlineQuery.id, inlineResults).options {
             isPersonal = true
