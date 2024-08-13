@@ -29,11 +29,6 @@ class ChallengeBotController(
         message { service.getUserChallengeResultMessage(user, ChallengeId.BAD) }.send(user, bot)
     }
 
-    @CommandHandler([BotCommand.CHALLENGE_SMESHARIK])
-    suspend fun smesharikCommand(user: User, bot: TelegramBot) {
-        message { service.getUserChallengeResultMessage(user, ChallengeId.KIKORIK) }.send(user, bot)
-    }
-
     @CommandHandler([BotCommand.CHALLENGE_BIG_O])
     suspend fun bigOCommand(user: User, bot: TelegramBot) {
         message { service.getUserChallengeResultMessage(user, ChallengeId.BIG_O) }.send(user, bot)
