@@ -12,6 +12,7 @@ class RandomQuantifiedChoiceContest(
     private val displayDescription: String,
     private val choicesWithTemplates: Map<String, Map<IntRange, List<String>>>,
     private val getQuantity: () -> Int,
+    private val persistentDisplayResult: Boolean = false,
 ) : ChallengeContest {
     override fun execute(): ChallengeResult {
         val quantity = getQuantity()
@@ -20,10 +21,18 @@ class RandomQuantifiedChoiceContest(
 
         val (chosenRange, templates) = templateRanges.entries.find { (range) -> range.contains(quantity) }!!
 
+        val initiallyGeneratedDisplayResult = "$chosenName: ${templates.random().format(quantity)}"
+
         return ChallengeResult(
             displayName = displayName,
             displayDescription = displayDescription,
-            getDisplayResult = { templates.random().format(quantity) },
+            getDisplayResult = {
+                if (persistentDisplayResult) {
+                    initiallyGeneratedDisplayResult
+                } else {
+                    "$chosenName: ${templates.random().format(quantity)}"
+                }
+            },
             challengeId = challengeId,
 
             __FIXME__getValueResult = { "$chosenName $chosenRange" }

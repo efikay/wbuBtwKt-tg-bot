@@ -43,7 +43,7 @@ class BotController(
 
         answerInlineQuery(inlineQuery.id, inlineResults).options {
             isPersonal = true
-            cacheTime = 300
+            cacheTime = 0
         }.send(bot)
     }
 }
