@@ -17,37 +17,7 @@ class ChallengeInlineResultsService(
             return listOf()
         }
 
-        return getUserInlineResults(user) + getUserTotalInlineResult(user)
-    }
-
-    private fun getUserTotalInlineResult(user: User): InlineQueryResult {
-        val displayName = if (user.username != null) "@${user.username}" else user.firstName
-
-        val message =
-            challengeResultsService.getUserChallengeResults(user.id).fold(mutableListOf<String>()) { acc, it ->
-                acc.add(
-                    String.format(
-                        """====(%s)====:%n%s""",
-                        it.displayName,
-                        it.getDisplayResult(),
-                    )
-                )
-
-                acc
-            }.joinToString("\n\n")
-
-        return InlineQueryResult.Article(
-            id = "all",
-            title = "Все за один раз",
-            description = "Все тесты",
-            inputMessageContent = Text(
-                """
-                Результаты всех тестов для юзера $displayName:
-                |
-                |${message}
-            """.trimMargin()
-            )
-        )
+        return getUserInlineResults(user)
     }
 
     private fun getUserInlineResults(user: User): List<InlineQueryResult> =

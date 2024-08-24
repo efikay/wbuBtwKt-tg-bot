@@ -39,17 +39,6 @@ class ChallengeBotController(
         message { service.getUserChallengeResultMessage(user, ChallengeId.IT) }.send(user, bot)
     }
 
-    @CommandHandler([BotCommand.ALL_CHALLENGES])
-    suspend fun allCommand(user: User, bot: TelegramBot) {
-        message {
-            """Ваш диагноз по всем испытаниям:
-                |
-                |${service.getAllUserChallengeResultMessages(user).joinToString("\n\n")}
-            """.trimMargin()
-        }.send(user, bot)
-    }
-
-
     @CommandHandler([BotCommand.CHALLENGE_USERS])
     suspend fun usersCommand(user: User, bot: TelegramBot) {
         val stats = service.getUsersChallengeStats()
