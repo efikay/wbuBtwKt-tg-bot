@@ -13,13 +13,6 @@ class ChallengeBotService(
 ) {
     fun getUsersChallengeStats() = challengeTotalResultsService.getUsersChallengeTotalStats()
 
-    fun getAllUserChallengeResultMessages(user: User) = ChallengeId.entries.map {
-        val resultMessage = getUserChallengeResultMessage(user, it)
-
-        """====($it)====
-            |$resultMessage""".trimMargin()
-    }
-
     fun getUserChallengeResultMessage(user: User, challengeId: ChallengeId): String =
         challengeResultsService.getUserChallengeResult(user.id, challengeId).getDisplayResult()
 }
